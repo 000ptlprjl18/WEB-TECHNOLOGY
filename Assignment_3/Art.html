@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Deck App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        .controls {
+            margin: 20px 0;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .card {
+            width: 100px;
+            height: 140px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .card img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .status {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Card Deck App</h1>
+    
+    <div class="controls">
+        <button id="shuffleBtn">Shuffle Deck</button>
+        <button id="drawBtn" disabled>Draw Card</button>
+        <button id="resetBtn">Reset</button>
+    </div>
+    
+    <div class="status" id="status">Deck not initialized. Click "Shuffle Deck" to start.</div>
+    
+    <div class="card-container" id="cardContainer"></div>
+    
+    <script>
+        let deckId = null;
+        const shuffleBtn = document.getElementById('shuffleBtn');
+        const drawBtn = document.getElementById('drawBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const statusEl = document.getElementById('status');
+        const cardContainer = document.getElementById('cardContainer');
+        
+        // Shuffle a new deck
+        shuffleBtn.addEventListener('click', async () => {
+            try {
+                const response = await fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1');
+                const data = await response.json();
+                
+                deckId = data.deck_id;
+                statusEl.textContent = `Deck shuffled. ${data.remaining} cards remaining.`;
+                drawBtn.disabled = false;
+                cardContainer.innerHTML = '';
+            } catch (error) {
+                statusEl.textContent = 'Error shuffling deck. Please try again.';
+                console.error(error);
+            }
+        });
+        
+        // Draw a card
+        drawBtn.addEventListener('click', async () => {
+            if (!deckId) return;
+            
+            try {
+                const response = await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const card = data.cards[0];
+                    const cardEl = document.createElement('div');
+                    cardEl.className = 'card';
+                    cardEl.innerHTML = `<img src="${card.image}" alt="${card.value} of ${card.suit}">`;
+                    cardContainer.appendChild(cardEl);
+                    
+                    statusEl.textContent = `Drew ${card.value} of ${card.suit}. ${data.remaining} cards remaining.`;
+                    
+                    if (data.remaining === 0) {
+                        drawBtn.disabled = true;
+                        statusEl.textContent += ' Deck is empty!';
+                    }
+                } else {
+                    statusEl.textContent = 'Error drawing card. Deck may be empty.';
+                }
+            } catch (error) {
+                statusEl.textContent = 'Error drawing card. Please try again.';
+                console.error(error);
+            }
+        });
+        
+        // Reset everything
+        resetBtn.addEventListener('click', () => {
+            deckId = null;
+            statusEl.textContent = 'Deck reset. Click "Shuffle Deck" to start.';
+            drawBtn.disabled = true;
+            cardContainer.innerHTML = '';
+        });
+    </script>
+</body>
+</html>
