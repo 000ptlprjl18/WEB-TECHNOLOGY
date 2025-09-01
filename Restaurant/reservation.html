@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Large Party Reservations | The Foody Spot</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+ 
+    .party-hero {
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('party1-banner.jpg');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      padding: 4rem 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .party-hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .party-form-container {
+    
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1rem 3rem;
+    }
+    
+    .party-form {
+     
+       background-color:rgb(162, 184, 192);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin: 0 auto;
+    }
+    
+    .form-section {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .form-section h3 {
+      color: #8e44ad;
+      margin-bottom: 1rem;
+    }
+    
+    .form-row {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-row label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .form-row input,
+    .form-row select,
+    .form-row textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    
+    .form-row textarea {
+      min-height: 100px;
+    }
+    
+    .theme-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .theme-option {
+      flex: 1 1 150px;
+    }
+    
+    .theme-option input {
+      display: none;
+    }
+    
+    .theme-option label {
+      display: block;
+      padding: 1rem;
+      background: #f1f2f6;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      text-align: center;
+      cursor: pointer;
+    }
+    
+    .theme-option input:checked + label {
+      border-color: #8e44ad;
+      background: #f3e6f8;
+    }
+    
+    .party-info {
+      background: #56b963;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    
+    .info-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    
+    .info-card {
+      background: rgba(255,255,255,0.1);
+      padding: 1.5rem;
+      border-radius: 8px;
+      flex: 1 1 250px;
+      max-width: 300px;
+    }
+    
+    .info-card h4 {
+      color: white;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid white;
+      padding-bottom: 0.5rem;
+    }
+    
+    @media (max-width: 768px) {
+      .party-hero h2 {
+        font-size: 2rem;
+      }
+      
+      .theme-options {
+        flex-direction: column;
+      }
+      
+      .theme-option {
+        flex: 1 1 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>The Foody Spot</h1>
+      <button class="toggle" onclick="toggleMenu()">☰</button>
+      <nav id="navbar">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="chefs.html">Chefs</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="reservation.html" class="active">Large Parties</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <section class="party-hero">
+    <h2>Large Party Reservations</h2>
+    <p>For groups of 8 or more guests</p>
+  </section>
+  
+  <div class="party-form-container">
+    <form class="party-form" action="#" method="POST">
+      <div class="form-section">
+        <h3>Contact Information</h3>
+        
+        <div class="form-row">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        
+        
+        <div class="form-row">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+      </div>
+      
+      <div class="form-section">
+        <h3>Party Details</h3>
+        
+        <div class="form-row">
+          <label for="party-type">Type of Event</label>
+          <select id="party-type" name="party-type" required>
+            <option value="" disabled selected>Select event type</option>
+            <option value="birthday">Birthday Party</option>
+            <option value="anniversary">Anniversary</option>
+            <option value="corporate">Corporate Event</option>
+            <option value="family">Family Gathering</option>
+            <option value="other">Other Celebration</option>
+            
+          </select>
+        </div>
+        
+        <div class="form-row">
+          <label for="date">Preferred Date</label>
+          <input type="date" id="date" name="date" required>
+        </div>
+        
+        <div class="form-row">
+          <label for="duration">Estimated Duration</label>
+          <select id="duration" name="duration" required>
+            <option value="" disabled selected>Select duration</option>
+            <option value="2">2 Hours</option>
+            <option value="3">3 Hours</option>
+            <option value="4">4 Hours</option>
+            <option value="5+">5+ Hours</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="form-section">
+        <h3>Decoration Theme</h3>
+        
+        <div class="form-row">
+          <p>Select your preferred decoration style:</p>
+          <div class="theme-options">
+            <div class="theme-option">
+              <input type="radio" id="warm-theme" name="theme" value="warm">
+              <label for="warm-theme">Warm Theme<br>(Gold/Red tones)</label>
+            </div>
+            <div class="theme-option">
+              <input type="radio" id="light-theme" name="theme" value="light">
+              <label for="light-theme">Light Theme<br>(Pastels/Whites)</label>
+            </div>
+            <div class="theme-option">
+              <input type="radio" id="dark-theme" name="theme" value="dark">
+              <label for="dark-theme">Dark Theme<br>(Moody/Elegant)</label>
+            </div>
+            <div class="theme-option">
+              <input type="radio" id="custom-theme" name="theme" value="custom">
+              <label for="custom-theme">Custom Theme<br>(Describe below)</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <button type="submit" class="ct">Submit Reservation Request</button>
+    </form>
+  </div>
+  
+  <section class="party-info">
+    <h3>Large Party Information</h3>
+    <div class="info-cards">
+      <div class="info-card">
+        <h4>Minimum Group Size</h4>
+        <p>We accept reservations for groups of 8 or more people in our private dining area.</p>
+      </div>
+      <div class="info-card">
+        <h4>Advance Notice</h4>
+        <p>Please book at least 72 hours in advance for large party reservations.</p>
+      </div>
+      <div class="info-card">
+        <h4>Deposit Required</h4>
+        <p>A 20% deposit will be required to confirm your reservation.</p>
+      </div>
+    </div>
+  </section>
+  
+  <footer>
+   <p>Contact us: thefoodyspot@email.com | +91 xxxxxxxxxx</p>
+    <p>Enjoy your food!</p>
+   
+  </footer>
+  
+</body>
+</html>
