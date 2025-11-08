@@ -44,30 +44,4 @@ function Array()
   );
 }
 
-function App() {
-  const style={
-    color:"black"
-  }
-  const [initial,setInitial]=useState([0,10,15,17]);
-  const [res,setRes]=useState(0);
-  const reset=()=>{
-    setRes(prev=>prev+1);
-  }
- return(
-  <>
-  <button style={style} onClick={reset}>Reset</button>
-
-  {/* <Counter title="Counter-1" val={state+0}></Counter>
-  <Counter title="Counter-2" val={state+10}></Counter>
-  <Counter title="Counter-3" val={state+15}></Counter>
-  <Counter title="Counter-4" val={state+17}></Counter> */}
-
-  {initial.map((k,i)=>(
-     <Counter key={`k${i}${res}`} title={`Counter-${i+1}`} val={k}></Counter>
-  ))}
-  
-  </>
- );   
-}
-
 export default App
