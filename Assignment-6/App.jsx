@@ -26,22 +26,4 @@ function Counter(props)
   );
 }
 
-function Array()
-{
-  // let arr=[10,20,30];
-  const [arr,setArr]=useState([10,20,30]);
-  const [count,setCount]=useState(30);
-  const add=()=>{
-    setCount(count+10);
-    setArr([...arr,count+10]);
-  }
-  
-  return(
-    <>
-      {arr.map((x)=><h2>{x}</h2>)}
-      <button onClick={add}>Add</button>
-    </>
-  );
-}
-
 export default App
